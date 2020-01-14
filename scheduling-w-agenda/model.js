@@ -15,6 +15,7 @@ const subSchema = new Schema({
 
 const mainSchema = new Schema({
   activeTeam: String,
+  estimatedSwitchTime: String,
   rotationFrequency: String,
   rotationInterval: Number,
   team: [subSchema],

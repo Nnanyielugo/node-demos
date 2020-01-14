@@ -16,6 +16,7 @@ export const save = async (req, res, next) => {
       rotation.rotationFrequency
     );
     rotation.activeTeam = activeTeam._id;
+    rotationn.estimatedSwitchTime = activeTeam.rotationEndTime;
     await rotation.save();
     res.status(204).send(rotation);
   } catch(err) {
@@ -43,4 +44,9 @@ function composeActiveTeam(id, teams, interval, frequency) {
   activeTeam.rotationEndTime = moment().add(interval, frequency);
 
   return activeTeam;
+}
+
+export async function switchActiveTeam() {
+  const rotations = await Rotation.find();
+  console.log('rotations', rotations)
 }
