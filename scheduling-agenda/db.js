@@ -1,6 +1,6 @@
 import { connect, connection, set } from 'mongoose';
 
-const URI = 'mongodb://localhost:27017/rotation-demo';
+export const URI = 'mongodb://localhost:27017/rotation-demo';
 connect(URI);
 set('debug', true);
 connection.on('connected', () => {
