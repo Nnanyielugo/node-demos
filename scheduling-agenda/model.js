@@ -15,8 +15,12 @@ const subSchema = new Schema({
 
 const mainSchema = new Schema({
   activeTeam: String,
+  rotationFrequency: String,
+  rotationInterval: Number,
   team: [subSchema],
   createdAt: { type: Date, default: Date.now },
 });
 
-export const rotation = model('rotation', mainSchema);
+const rotation = model('rotation', mainSchema);
+
+export default rotation;
