@@ -39,10 +39,10 @@ export const update = async (req, res, next) => {
   }
 }
 
-function composeActiveTeam(id, teams, interval, frequency, date = new Date()) {
+function composeActiveTeam(id, teams, interval, frequency, date = new Date(), incrementBy = date) {
   const activeTeam = teams.find(team => team._id === id);
   activeTeam.rotationStartTime = date;
-  activeTeam.rotationEndTime = moment().add(interval, frequency);
+  activeTeam.rotationEndTime = moment(date).add(interval, frequency);
 
   return activeTeam;
 }
@@ -69,7 +69,8 @@ export async function switchActiveTeam() {
           nextActiveTeamId,
           team,
           rotationInterval,
-          rotationFrequency
+          rotationFrequency,
+          rotation.estimatedSwitchTime
         );
         team.splice(nextTeamIndex, 1, nextActiveTeam);
         team.forEach(indTeam => {
@@ -78,11 +79,12 @@ export async function switchActiveTeam() {
             indTeam.rotationEndTime = null;
           }
         })
-        const updatedRotation = await Rotation
+        await Rotation
           .findByIdAndUpdate(_id, {
             activeTeam: nextActiveTeam,
             activeTeamId: nextActiveTeam._id,
-            team
+            team,
+            estimatedSwitchTime: nextActiveTeam.rotationEndTime
           })
           .exec();
       }
