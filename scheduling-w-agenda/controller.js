@@ -42,7 +42,7 @@ export const update = async (req, res, next) => {
 function composeActiveTeam(id, teams, interval, frequency, date = new Date(), incrementBy = date) {
   const activeTeam = teams.find(team => team._id === id);
   activeTeam.rotationStartTime = date;
-  activeTeam.rotationEndTime = moment(date).add(interval, frequency);
+  activeTeam.rotationEndTime = moment(incrementBy).add(interval, frequency);
 
   return activeTeam;
 }
