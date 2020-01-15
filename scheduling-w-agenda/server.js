@@ -2,10 +2,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import Agenda from 'agenda';
 import logger from 'morgan';
-import { URI } from './db';
-import './db';
-import routes from './routes';
-import { switchActiveTeam } from './controller';
+import { URI } from './api/db';
+import './api/db';
+import routes from './api/routes';
+import { switchActiveTeam } from './api/controller';
 
 const app = express();
 const port = 2005;
