@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-const subSchema = new Schema({
+const teamSchema = new Schema({
   rotationStartTime: String,
   rotationEndTime: String,
   teamMember: [
@@ -14,11 +14,12 @@ const subSchema = new Schema({
 });
 
 const mainSchema = new Schema({
-  activeTeam: String,
+  activeTeamId: String,
+  activeTeam: teamSchema,
   estimatedSwitchTime: String,
   rotationFrequency: String,
   rotationInterval: Number,
-  team: [subSchema],
+  team: [teamSchema],
   createdAt: { type: Date, default: Date.now },
 });
 
