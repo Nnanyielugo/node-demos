@@ -11,13 +11,14 @@ const app = express();
 const port = 2005;
 const agenda = new Agenda();
 agenda.database(URI)
-agenda.define('update active team on rotation', async (job) => {
+agenda.define('update active team on rotation', async (job, done) => {
   switchActiveTeam();
+  if (done) done();
 });
 
 (async function() {
   await agenda.start();
-  await agenda.every('10 seconds', 'update active team on rotation')
+  await agenda.every('5 minutes', 'update active team on rotation')
 })();
 
 app.use(logger('dev'));
