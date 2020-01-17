@@ -35,7 +35,7 @@ export const update = async (req, res, next) => {
     if (!rotation) throw new Error("id not found");
     res.status(201).send(rotation);
   } catch(err) {
-    res.status(400).send(err.message);
+    next(err)
   }
 }
 
